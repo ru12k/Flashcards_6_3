@@ -5,12 +5,9 @@ export const ADD_EN = 'app/add_enWord';
 export const ADD_RU = 'app/add_ruWord';
 export const LOAD_EN = 'app/load_en';
 export const LOAD_RU = 'app/load_ru';
-export const WORDS = 'app/words';
 export const ADD_INPUT = 'app/input';
 export const ADD_RESULT = 'app/result';
 export const SIZE_EN = 'app/size';
-export const COUNT_SUCCES = 'app/count_right_answers';
-export const COUNT_WRONG = 'app/count_wrong_answers';
 export const CHANGE_SUCCES = 'app/change_right_answers';
 export const CHANGE_WRONG = 'app/change_wrong_answers';
 
@@ -18,17 +15,17 @@ Vue.use(Vuex);
 
 export const cardStore = {
   state: {
-    [WORDS]: {},
-    [COUNT_SUCCES]: 0,
-    [COUNT_WRONG]: 0,
+    words: {},
+    count_succes: 0,
+    count_wrong: 0,
   },
   mutations: {
-    [ADD_EN]: (state, payload) => Vue.set(state[WORDS], payload.id, payload.en),
-    [ADD_RU]: (state, payload) => Vue.set(state[WORDS][payload.id], 'ru', payload.ru),
-    [ADD_INPUT]: (state, payload) => Vue.set(state[WORDS][payload.id], 'input', payload.input),
-    [ADD_RESULT]: (state, payload) => Vue.set(state[WORDS][payload.id], 'result', payload.result),
-    [CHANGE_SUCCES]: (state, n) => { state[COUNT_SUCCES] += n }, // eslint-disable-line
-    [CHANGE_WRONG]: (state, n) => { state[COUNT_WRONG] += n }, // eslint-disable-line
+    [ADD_EN]: (state, payload) => Vue.set(state.words, payload.id, payload.en),
+    [ADD_RU]: (state, payload) => Vue.set(state.words[payload.id], 'ru', payload.ru),
+    [ADD_INPUT]: (state, payload) => Vue.set(state.words[payload.id], 'input', payload.input),
+    [ADD_RESULT]: (state, payload) => Vue.set(state.words[payload.id], 'result', payload.result),
+    [CHANGE_SUCCES]: (state, n) => { state.count_succes += n }, // eslint-disable-line
+    [CHANGE_WRONG]: (state, n) => { state.count_wrong += n }, // eslint-disable-line
   },
   actions: {
     [LOAD_EN]: (context) => {
@@ -77,7 +74,8 @@ export const cardStore = {
       .catch(error => console.log(error)); // eslint-disable-line
     },
   },
+
   getters: {
-    [SIZE_EN]: state => Object.keys(state[WORDS]).length,
+    [SIZE_EN]: state => Object.keys(state.words).length,
   },
 };

@@ -28,7 +28,7 @@
 import Card from './components/card/Card.vue';
 import Informer from './components/informer/Informer.vue';
 import store from './store';
-import { LOAD_EN, WORDS, SIZE_EN, COUNT_SUCCES, COUNT_WRONG } from './components/card/card-store';
+import { LOAD_EN, SIZE_EN } from './components/card/card-store';
 
 export default {
   store,
@@ -41,9 +41,9 @@ export default {
   },
   computed: {
     deltaLeft: function left() { return -this.pos * 1000; },
-    en: () => store.state.cardStore[WORDS],
-    done: () => store.state.cardStore[COUNT_SUCCES],
-    fail: () => store.state.cardStore[COUNT_WRONG],
+    en: () => store.state.cardStore.words,
+    done: () => store.state.cardStore.count_succes,
+    fail: () => store.state.cardStore.count_wrong,
     maxPos: () => Math.floor(store.getters[SIZE_EN] / 5) - 1,
     showMaxPos: function show() { return `set positin(max: ${this.maxPos})`; },
     pos: function pos() {
@@ -65,9 +65,9 @@ export default {
     Card, Informer,
   },
   methods: {
-    load: function load() { store.dispatch({ type: LOAD_EN }); },
-    left: function left() { this.currentPos -= 1; },
-    right: function right() { this.currentPos += 1; },
+    load() { store.dispatch({ type: LOAD_EN }); },
+    left() { this.currentPos -= 1; },
+    right() { this.currentPos += 1; },
   },
   mounted() {
     this.load();
