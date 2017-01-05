@@ -22,7 +22,7 @@ export default {
       this.$store.commit({
         type: ADD_RESULT,
         id: this.id,
-        result: this.ru.some(function someCb(item) { return item === this.input; }),
+        result: this.ru.some(item => item === this.input),
       });
       if (this.result) this.$store.commit(CHANGE_SUCCES, 1);
       else this.$store.commit(CHANGE_WRONG, 1);
@@ -39,7 +39,7 @@ export default {
         key: this.id,
         en: this.en,
       })
-      .then(function cb(status) { if (status === 'Ok') return this.isOk(); }); // eslint-disable-line
+      .then((status) => { if (status === 'Ok') this.isOk(); });
     },
   },
 };
