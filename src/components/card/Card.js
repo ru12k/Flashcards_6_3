@@ -1,4 +1,4 @@
-import { LOAD_RU, ADD_INPUT, ADD_RESULT, CHANGE_SUCCES, CHANGE_WRONG } from './card-store';
+import { LOAD_RU } from './card-store';
 
 export default {
   name: 'Card',
@@ -10,7 +10,6 @@ export default {
   },
   computed: {
     en() { return this.$store.state.cardStore.words[this.id].en; },
-    ru() { return this.$store.state.cardStore.words[this.id].ru; },
     input() { return this.$store.state.cardStore.words[this.id].input; },
     result() { return this.$store.state.cardStore.words[this.id].result; },
     isRed() { if (this.result === false) return true; }, // eslint-disable-line
@@ -18,28 +17,14 @@ export default {
     showAnswer() { return this.result === undefined ? '' : `${this.input} is ${this.result}`; }, // eslint-disable-line 
   },
   methods: {
-    isOk() {
-      this.$store.commit({
-        type: ADD_RESULT,
-        id: this.id,
-        result: this.ru.some(item => item === this.input),
-      });
-      if (this.result) this.$store.commit(CHANGE_SUCCES, 1);
-      else this.$store.commit(CHANGE_WRONG, 1);
-    },
     submit() {
-      this.$store.commit({
-        type: ADD_INPUT,
-        id: this.id,
-        input: this.form,
-      });
-      this.form = '';
       this.$store.dispatch({
         type: LOAD_RU,
         key: this.id,
         en: this.en,
-      })
-      .then((status) => { if (status === 'Ok') this.isOk(); });
+        form: this.form,
+      });
+      this.form = '';
     },
   },
 };
