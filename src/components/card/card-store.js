@@ -49,12 +49,7 @@ export const cardStore = {
       const options = {
         jsonp: 'callback',
       };
-      context.commit({
-        type: ADD_INPUT,
-        id: payload.key,
-        input: payload.form,
-      });
-      return Vue.http.jsonp(apiURL, options)
+      Vue.http.jsonp(apiURL, options)
         .then(function(response){ // eslint-disable-line
           const ru = []; // eslint-disable-line
           if (response.data.result === 'ok') {
@@ -72,6 +67,13 @@ export const cardStore = {
             type: ADD_RU,
             id: payload.key,
             ru: ruWords,
+          });
+        })
+        .then(() => {
+          context.commit({
+            type: ADD_INPUT,
+            id: payload.key,
+            input: payload.form,
           });
         })
         .then(() => {
