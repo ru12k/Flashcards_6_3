@@ -1,10 +1,10 @@
 <template>
-  <div class="card" v-bind:class="{ red: isRed, green: isGreen }">
-    <h3>{{en}}</h3>
+  <div class="card" v-bind:class="{ 'bg-info': isStart, 'bg-danger': isWrong, 'bg-success': isSuccess }">
+    <h4 class="text-primary">{{en}}</h4>
     <span>id:{{id}}</span>
-    <input type="text" v-model="form">
-    <button type="submit" v-on:click="submit">Check</button>
-    <div>{{showAnswer}}</div>
+    <input type="text" v-model="form" class="form-control" placeholder="Insert translate">
+    <button v-on:click="submit" type="button" class="btn btn-default">Check</button>
+    <h5 v-bind:class="{ 'text-info': isStart, 'text-danger': isWrong, 'text-success': isSuccess }">{{showAnswer}}</h5>
   </div>
 </template>
 
@@ -25,8 +25,7 @@
   border-left: none;
   border-top: none;
 }
-h3 {
-  color: dimgray;
+h4, h5 {
   text-transform: uppercase;
 }
 .green {
@@ -37,15 +36,13 @@ h3 {
   background-color: pink;
 }
 button {
-  border: 1px solid dimgray;
-  padding: 10px 20px 10px 20px;
   margin: 20px;
-  background-color:azure;
-  text-transform: uppercase;
-  color:dimgray;
 }
 span {
   color: lightslategray;
   font-size: 10px; 
+}
+input {
+  width: 180px; 
 }
 </style>

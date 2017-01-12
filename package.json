@@ -10,8 +10,11 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "vue": "^2.1.0",
     "vue-resource": "^1.0.3",
+    "vue-strap": "^1.1.36",
+    "vuestrap-base-components": "^0.8.10",
     "vuex": "^2.0.0"
   },
   "devDependencies": {

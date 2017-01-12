@@ -1,5 +1,7 @@
 <template>
-  <div class="carousel">
+  <div class="carousel bg-info">
+
+    <h3>FLASHCARD</h3>
 
     <div class="main-wrapp">
       <button class="arrow" v-on:click="left"> &lt; </button>
@@ -14,18 +16,21 @@
     </div>
 
     <div class="footer-wrapp">
-      <button class="load-btn" v-on:click="load">more...</button>
-      <informer label="current position:" v-bind:value="sliderPos"></informer>
-      <informer v-bind:label="showMaxPos"><input type="text" slot="addcontent" v-model="currentPos"></informer>
-      <informer label="right answers:" v-bind:value="done"></informer>
-      <informer label="wrong answers:" v-bind:value="fail"></informer>
+      <button v-on:click="load" type="button" class="btn btn-primary btn-lg">Download more</button>
+      <informer label="current position:" v-bind:value="sliderPos" class="text-muted"></informer>
+      <informer v-bind:label="showMaxPos" class="text-muted"><input type="text" slot="addcontent" v-model="currentPos"></informer>
+      <informer label="right answers:" v-bind:value="done" class="text-primary"></informer>
+      <informer label="wrong answers:" v-bind:value="fail" class="text-danger"></informer>
     </div>
+
+    <popap></popap>
 
   </div>
 </template>
 
 <script>
 import Card from './components/card/Card.vue';
+import Popap from './components/popap/popap.vue';
 import Informer from './components/informer/Informer.vue';
 import store from './store';
 import { LOAD_EN, SIZE_EN } from './components/card/card-store';
@@ -62,7 +67,7 @@ export default {
     },
   },
   components: {
-    Card, Informer,
+    Card, Informer, Popap,
   },
   methods: {
     load() { store.dispatch({ type: LOAD_EN }); },
@@ -81,11 +86,12 @@ export default {
 }
 
 .carousel {
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color:azure;
+  /*background-color:azure;*/
   min-height: 300px;
   width: 1115px;
   border: 1px solid dimgray;
@@ -103,8 +109,6 @@ export default {
   padding: 5px;
   min-height: 80px;
   width: 1000px;
-  border: 1px solid dimgray;
-  border-top: none;
 }
 
 .footer-info input {

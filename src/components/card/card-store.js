@@ -11,6 +11,7 @@ export const ADD_RESULT = 'app/result';
 export const SIZE_EN = 'app/size';
 export const CHANGE_SUCCES = 'app/change_right_answers';
 export const CHANGE_WRONG = 'app/change_wrong_answers';
+export const SHOW_WINDOW = 'app/show_window';
 
 Vue.use(Vuex);
 Vue.use(VueResource);
@@ -20,6 +21,7 @@ export const cardStore = {
     words: {},
     count_succes: 0,
     count_wrong: 0,
+    show_window: false,
   },
   mutations: {
     [ADD_EN]: (state, payload) => Vue.set(state.words, payload.id, payload.en),
@@ -28,6 +30,7 @@ export const cardStore = {
     [ADD_RESULT]: (state, payload) => Vue.set(state.words[payload.id], 'result', payload.result),
     [CHANGE_SUCCES]: (state, payload) => { state.count_succes += payload.n }, // eslint-disable-line
     [CHANGE_WRONG]: (state, payload) => { state.count_wrong += payload.n }, // eslint-disable-line
+    [SHOW_WINDOW]: (state, payload) => { state.show_window = payload.show }, // eslint-disable-line
   },
   actions: {
     [LOAD_EN]: (context) => {
@@ -93,6 +96,14 @@ export const cardStore = {
             context.commit({
               type: CHANGE_WRONG,
               n: 1,
+            });
+          }
+        })
+        .then(() => {
+          if (context.state.count_succes === 5) {
+            context.commit({
+              type: SHOW_WINDOW,
+              show: true,
             });
           }
         })

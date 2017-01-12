@@ -1,9 +1,9 @@
 <template>
   <div class="footer-info">
-    <span class="lable-info">
+    <span class="lable-info class">
       {{label}}
     </span>
-    <span class="value-info">
+    <span class="value-info class">
       {{value}}
     </span>
     <span>
@@ -18,7 +18,6 @@
 <style>
   .footer-info {
     padding: 5px;
-    color:dimgray
   }
   .label-info {
     padding: 5px;

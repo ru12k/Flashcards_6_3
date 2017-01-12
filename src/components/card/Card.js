@@ -1,8 +1,12 @@
+import VueStrap from 'vue-strap';
 import { LOAD_RU } from './card-store';
 
 export default {
   name: 'Card',
   props: ['id'],
+  components: {
+    'bs-input': VueStrap.input,
+  },
   data() {
     return {
       form: '',
@@ -12,11 +16,13 @@ export default {
     en() { return this.$store.state.cardStore.words[this.id].en; },
     input() { return this.$store.state.cardStore.words[this.id].input; },
     result() { return this.$store.state.cardStore.words[this.id].result; },
-    isRed() { if (this.result === false) return true; }, // eslint-disable-line
-    isGreen() { if (this.result) return true; }, // eslint-disable-line
-    showAnswer() { return this.result === undefined ? '' : `${this.input} is ${this.result}`; }, // eslint-disable-line 
+    isWrong() { if (this.result === false) return true; }, // eslint-disable-line
+    isSuccess() { if (this.result === true) return true; }, // eslint-disable-line
+    isStart() { if (this.result === undefined) return true; }, // eslint-disable-line
+    showAnswer() { return this.result === undefined ? '' : `${this.input} is ${this.result}`; }, // eslint-disable-line
   },
   methods: {
+    mask(value) { return value.toLowerCase().replace(/^[^a-z]+/,'').replace(/[^a-z0-9]/g,''); },
     submit() {
       this.$store.dispatch({
         type: LOAD_RU,
