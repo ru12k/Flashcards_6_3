@@ -12,6 +12,8 @@ export const SIZE_EN = 'app/size';
 export const CHANGE_SUCCES = 'app/change_right_answers';
 export const CHANGE_WRONG = 'app/change_wrong_answers';
 export const SHOW_WINDOW = 'app/show_window';
+export const CHECK_REPEAT = 'app/check_repeat';
+export const TOGGLE_BTN = 'app/toggle_btn';
 
 Vue.use(Vuex);
 Vue.use(VueResource);
@@ -22,6 +24,7 @@ export const cardStore = {
     count_succes: 0,
     count_wrong: 0,
     show_window: false,
+    toggle_btn: false,
   },
   mutations: {
     [ADD_EN]: (state, payload) => Vue.set(state.words, payload.id, payload.en),
@@ -31,9 +34,20 @@ export const cardStore = {
     [CHANGE_SUCCES]: (state, payload) => { state.count_succes += payload.n }, // eslint-disable-line
     [CHANGE_WRONG]: (state, payload) => { state.count_wrong += payload.n }, // eslint-disable-line
     [SHOW_WINDOW]: (state, payload) => { state.show_window = payload.show }, // eslint-disable-line
+    [TOGGLE_BTN]: (state) => { state.toggle_btn = !(state.toggle_btn); }, // eslint-disable-line
+    [CHECK_REPEAT]: (state, payload) => {
+      if (state.words[payload.id].hasOwnProperty('repeat')) { // eslint-disable-line
+        state.words[payload.id].repeat += 1; // eslint-disable-line
+      } else {
+        state.words[payload.id].repeat = 1; // eslint-disable-line
+      }
+    },
   },
   actions: {
     [LOAD_EN]: (context) => {
+      context.commit({
+        type: TOGGLE_BTN,
+      });
       fetch('https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&includePartOfSpeech=idiom&limit=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5') // eslint-disable-line
         .then(r => r.json())
         .then((data) => {
@@ -44,6 +58,11 @@ export const cardStore = {
               id: item.id,
               en: { en: item.word },
             });
+          });
+        })
+        .then(() => {
+          context.commit({
+            type: TOGGLE_BTN,
           });
         });
     },
@@ -89,12 +108,21 @@ export const cardStore = {
         .then(() => {
           if (context.state.words[payload.key].result) {
             context.commit({
-              type: CHANGE_SUCCES,
-              n: 1,
+              type: CHECK_REPEAT,
+              id: payload.key,
             });
           } else {
             context.commit({
               type: CHANGE_WRONG,
+              n: 1,
+            });
+          }
+        })
+        .then(() => {
+          console.log('repeat:', context.state.words[payload.key].repeat); // eslint-disable-line
+          if (context.state.words[payload.key].repeat === 1) { // eslint-disable-line
+            context.commit({
+              type: CHANGE_SUCCES,
               n: 1,
             });
           }

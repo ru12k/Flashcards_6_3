@@ -20,6 +20,12 @@ export default {
     isSuccess() { if (this.result === true) return true; }, // eslint-disable-line
     isStart() { if (this.result === undefined) return true; }, // eslint-disable-line
     showAnswer() { return this.result === undefined ? '' : `${this.input} is ${this.result}`; }, // eslint-disable-line
+    isDisabled() {
+      if (this.form === '') {
+        return 'disabled';
+      }
+      return null;
+    },
   },
   methods: {
     mask(value) { return value.toLowerCase().replace(/^[^a-z]+/,'').replace(/[^a-z0-9]/g,''); },

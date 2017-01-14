@@ -3,7 +3,7 @@
     <h4 class="text-primary">{{en}}</h4>
     <span>id:{{id}}</span>
     <input type="text" v-model="form" class="form-control" placeholder="Insert translate">
-    <button v-on:click="submit" type="button" class="btn btn-default">Check</button>
+    <button v-on:click="submit" type="button" class="btn btn-default" v-bind:disabled="isDisabled">Check</button>
     <h5 v-bind:class="{ 'text-info': isStart, 'text-danger': isWrong, 'text-success': isSuccess }">{{showAnswer}}</h5>
   </div>
 </template>

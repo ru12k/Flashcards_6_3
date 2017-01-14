@@ -16,7 +16,7 @@
     </div>
 
     <div class="footer-wrapp">
-      <button v-on:click="load" type="button" class="btn btn-primary btn-lg">Download more</button>
+      <button v-on:click="load" type="button" v-bind:disabled="isDisabled" class="btn btn-primary btn-lg">Download more</button>
       <informer label="current position:" v-bind:value="sliderPos" class="text-muted"></informer>
       <informer v-bind:label="showMaxPos" class="text-muted"><input type="text" slot="addcontent" v-model="currentPos"></informer>
       <informer label="right answers:" v-bind:value="done" class="text-primary"></informer>
@@ -49,6 +49,10 @@ export default {
     en: () => store.state.cardStore.words,
     done: () => store.state.cardStore.count_succes,
     fail: () => store.state.cardStore.count_wrong,
+    isDisabled: function dis() {
+      if (store.state.cardStore.toggle_btn) return 'disabled';
+      return null;
+    },
     maxPos: () => Math.floor(store.getters[SIZE_EN] / 5) - 1,
     showMaxPos: function show() { return `set positin(max: ${this.maxPos})`; },
     pos: function pos() {
