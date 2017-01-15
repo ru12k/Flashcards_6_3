@@ -1,8 +1,8 @@
 <template>
   <div>
-     <modal :show.sync="success" effect="fade" width="50%">
+     <modal :show.sync="showPopap" effect="fade" width="50%">
         <div slot="modal-header" class="modal-header">
-          <h4> Хотите вступить в группу JavaScript.Ninja на Facebook?</h4>
+          <h4> Хотите вступить в группу JavaScript.Ninja на VK?</h4>
         </div>
         <div slot="modal-body" class="modal-body">
             <a href="https://vk.com/smartjs" class="btn btn-primary btn-lg active" role="button">JavaScript.Ninja - Все будет JavaScript!</a>

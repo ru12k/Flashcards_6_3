@@ -32,8 +32,8 @@
 import Card from './components/card/Card.vue';
 import Popap from './components/popap/popap.vue';
 import Informer from './components/informer/Informer.vue';
-import store from './store';
-import { LOAD_EN, SIZE_EN } from './components/card/card-store';
+import store from './store/store';
+import { LOAD_EN, SIZE_EN } from './store/modules/card-store';
 
 export default {
   store,

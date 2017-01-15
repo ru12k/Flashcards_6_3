@@ -1,5 +1,5 @@
 import VueStrap from 'vue-strap';
-import { LOAD_RU } from './card-store';
+import { LOAD_RU } from '../../store/modules/card-store';
 
 export default {
   name: 'Card',

@@ -1,20 +1,14 @@
 import VueStrap from 'vue-strap';
-import { SHOW_WINDOW } from '../card/card-store';
+import { SHOW_WINDOW } from '../../store/modules/popap-store';
 
 export default {
   name: 'Popap',
-  data() {
-    return {
-      showCustomModal: false,
-    };
-  },
   components: {
     modal: VueStrap.modal,
   },
   computed: {
-    success() {
-      return this.$store.state.cardStore.show_window;
-    },
+    showPopap() { return this.$store.state.popapStore.show_window; },
+    fireWindow() { return this.$store.state.cardStore.count_succes; },
   },
   methods: {
     hideWindow() {
@@ -24,6 +18,17 @@ export default {
       });
     }, // eslint-disable-line
   },
+  watch: {
+    fireWindow: function fcb() {
+      if (this.fireWindow === 2) {
+        this.$store.commit({
+          type: SHOW_WINDOW,
+          show: true,
+        });
+      }
+    },
+  },
 };
+
 
 
