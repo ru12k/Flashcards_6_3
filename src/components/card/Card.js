@@ -28,13 +28,12 @@ export default {
     },
   },
   methods: {
-    mask(value) { return value.toLowerCase().replace(/^[^a-z]+/,'').replace(/[^a-z0-9]/g,''); },
     submit() {
       this.$store.dispatch({
         type: LOAD_RU,
         key: this.id,
         en: this.en,
-        form: this.form,
+        form: this.form.toLowerCase(),
       });
       this.form = '';
     },

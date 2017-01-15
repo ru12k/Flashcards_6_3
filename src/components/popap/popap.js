@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     fireWindow: function fcb() {
-      if (this.fireWindow === 2) {
+      if (this.fireWindow === 5) {
         this.$store.commit({
           type: SHOW_WINDOW,
           show: true,
